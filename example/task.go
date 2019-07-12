@@ -3,7 +3,7 @@ package main
 import (
 	"time"
 	"log"
-	"github.com/soalriens/pool"
+	"github.com/soalriens/go-pool"
 )
 
 type Task struct {
