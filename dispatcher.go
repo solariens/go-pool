@@ -20,12 +20,10 @@ func NewDispatcher(cfg Config) *Dispatcher {
 	d := &Dispatcher{}
 	for i:=0; i<int(cfg.WorkerNum); i++ {
 		d.wg.Add(1)
-		w := NewWorker(uint(i), d)
+		w := NewWorker(uint(i), cfg.MaxJobPerWorker, d)
 		d.workerList = append(d.workerList, w)
 	}
-	if cfg.MaxJobPerWorker == 0 {
-		cfg.MaxJobPerWorker = uint(DefaultMaxJobPerWorker)
-	}
+
 	if cfg.MaxJobNum == 0 {
 		cfg.MaxJobNum = cfg.WorkerNum * cfg.MaxJobPerWorker
 	}

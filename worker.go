@@ -29,10 +29,13 @@ type Worker struct {
 	status uint32
 }
 
-func NewWorker(id uint, d *Dispatcher) *Worker {
+func NewWorker(id, maxJob uint, d *Dispatcher) *Worker {
+	if maxJob == 0 {
+		maxJob = uint(DefaultMaxJobPerWorker)
+	}
 	w := &Worker{
 		id:     id,
-		task:   make(chan Job, 100),
+		task:   make(chan Job, maxJob),
 		stopCh: make(chan struct{}),
 		d:      d,
 	}
